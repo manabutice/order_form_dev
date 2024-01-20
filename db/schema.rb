@@ -10,14 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_08_012039) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_15_221019) do
   create_table "orders", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "email", null: false
-    t.string "telephone", null: false
-    t.string "delivery_address", null: false
+    t.string "email"
+    t.string "telephone"
+    t.string "delivery_address"
+    t.integer "payment_method_id"
+    t.index ["payment_method_id"], name: "index_orders_on_payment_method_id"
   end
 
+  create_table "payment_methods", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "orders", "payment_methods", on_update: :restrict, on_delete: :restrict
 end

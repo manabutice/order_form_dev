@@ -7,3 +7,17 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+# PaymentMethod.create(id: a, name: 'クレジットカード')
+# PaymentMethod.create(id: b, name: '銀行振込')
+# PaymentMethod.create(id: c, name: '代引き')
+# PaymentMethod.create(id: d, name: 'コンビニ払い')
+ApplicationRecord.transaction do 
+  PaymentMethod.delete_all
+
+  PaymentMethod.create(id: 1, name: 'クレジットカード')
+  PaymentMethod.create(id: 2, name: '銀行振込')
+  PaymentMethod.create(id: 3, name: '代引き')
+  PaymentMethod.create(id: 4, name: 'コンビニ払い')
+  PaymentMethod.create(id: 5, name: '郵便為替')
+end

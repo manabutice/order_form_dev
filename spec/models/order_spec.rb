@@ -6,12 +6,14 @@ RSpec.describe Order, type: :model do
     let(:email) { 'test@example.com' }
     let(:telephone) { '013456789' }
     let(:delivery_address) { '東京都葛飾区亀有公園前' }
+    let(:payment_method_id) { 1 }
     let(:params) do
       {
         name:,
         email:,
         telephone:,
-        delivery_address:
+        delivery_address:,
+        payment_method_id:
       }
     end
 
@@ -43,32 +45,38 @@ RSpec.describe Order, type: :model do
       it { is_expected.to eq true }
     end
 
-    context "電話番号が空白の場合" do
+    context '電話番号が空白の場合' do
       let(:telephone) { '' }
 
       it { is_expected.to eq false }
     end
 
-    context "電話番号が全角の場合" do
-      let(:telephone) { '０９０１２３４５６７８' }
+    context '電話番号が全角の場合' do
+      let(:telephone) { '０３１２３４５６７８' }
 
       it { is_expected.to eq true }
     end
 
-    context '電話番号に数字以外が含まれている場合' do
+    context '電話番号にハイフンが含まれている場合' do
       let(:telephone) { '090-1234-5678' }
 
       it { is_expected.to eq true }
     end
 
-    context '電話番号が１２桁の場合' do
+    context '電話番号の桁が12桁の場合' do
       let(:telephone) { '090123456789' }
 
       it { is_expected.to eq false }
     end
 
-    context 'お届け先住所が全角の場合' do
+    context 'お届け先住所が空白の場合' do
       let(:delivery_address) { '' }
+
+      it { is_expected.to eq false }
+    end
+
+    context '支払い方法が未入力の場合' do
+      let(:payment_method_id) { nil }
 
       it { is_expected.to eq false }
     end
