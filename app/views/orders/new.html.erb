@@ -32,7 +32,6 @@
         <%= f.select :payment_method_id, PaymentMethod.selectable_methods, { include_blank: true }, class: 'form-select' %>
         <%= render partial: 'shared/error_messages', locals: { record: @order, symbol: :payment_method_id } %>
       </div>
-      </div>
     </div>
 
     <div class="d-grid col-md-6 mx-auto">
