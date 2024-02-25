@@ -18,3 +18,5 @@ docker compose run web rails db:rollback
 docker-compose exec app bundle exec rspec spec/models
 
 docker-compose exec app bundle exec rspec spec/system
+
+docker-compose exec app bundle exec rspec spec/mailers
