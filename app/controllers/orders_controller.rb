@@ -24,7 +24,8 @@ class OrdersController < ApplicationController
     return render :new if params[:button] == 'back'
 
     if @order.save
-      OrderMailer.mail_to_user(@order.id).deliver
+      OrderMailer.mail_to_user(@order.id).deliver_later
+      # OrderMailerJob.perform_later(@order.id)
       session[:order_id] = @order.id
       return redirect_to complete_orders_url
     end
@@ -41,6 +42,7 @@ class OrdersController < ApplicationController
 
   private
 
+  # rubocop:disable Metrics/MethodLength
   def order_params
     params
       .require(:order)
@@ -54,6 +56,7 @@ class OrdersController < ApplicationController
               inflow_source_ids: [],
               order_products_attributes: %i[product_id quantity])
   end
+  # rubocop:enable Metrics/MethodLength
 
   def filter_order_products
     @order.order_products = @order.order_products
